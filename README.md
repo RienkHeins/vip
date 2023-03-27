@@ -59,9 +59,11 @@ bash vip/install.sh --assembly GRCh38
 
 ### Multipass VM
 1. `git clone https://github.com/molgenis/vip`
-2. `multipass launch jammy --name vip --cpus 6 --disk 3G --memory 12G --cloud-init ./vip/multipass.yaml --mount ./vip:~/vip`
+2. `multipass launch jammy --name vip --cpus 8 --disk 3G --memory 16G --cloud-init ./vip/multipass.yaml --mount ./vip:~/vip`
 3. `multipass shell vip`
 4. `bash vip/install.sh` (optionally with `--assembly` as shown above)
+
+Above values for `--cpus`/`--memory` can be adjusted based on how VIP is configured.
 
 ## Usage
 ```
