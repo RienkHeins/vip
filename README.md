@@ -28,13 +28,23 @@ The VIP pipeline can easily be [installed](#installation) on a POSIX compatible 
 VIP can be used for single patients, families or cohort data.
 
 ## Prerequisites
-- [POSIX compatible system](https://en.wikipedia.org/wiki/POSIX#POSIX-oriented_operating_systems) (e.g. Linux, macOS, [Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/about))
+
+VIP can be installed either natively or through a Multipass VM for broader compatibility.
+
+**Native (recommended)**
+- Linux
 - Bash ≥ 3.2
 - Java ≥ 11
 - [Apptainer](https://apptainer.org/docs/admin/main/installation.html#install-from-pre-built-packages) (setuid installation)
 - ~400GB disk space
 
+**Multipass VM**
+- Linux, MacOS or Windows
+- [Multipass](https://multipass.run/install)
+- ~400GB disk space
+
 ## Installation
+### Native
 ```
 git clone https://github.com/molgenis/vip
 bash vip/install.sh
@@ -46,6 +56,12 @@ Use `--assembly` to download recourses for a specific assembly:
 bash vip/install.sh --assembly GRCh37
 bash vip/install.sh --assembly GRCh38
 ```
+
+### Multipass VM
+1. `git clone https://github.com/molgenis/vip`
+2. `multipass launch jammy --name vip --cpus 6 --disk 3G --memory 12G --cloud-init ./vip/multipass.yaml --mount ./vip:~/vip`
+3. `multipass shell vip`
+4. `bash vip/install.sh` (optionally with `--assembly` as shown above)
 
 ## Usage
 ```

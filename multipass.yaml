@@ -1,0 +1,11 @@
+#cloud-config
+package_update: true
+package_upgrade: true
+
+runcmd:
+  # Install java
+  - sudo apt install openjdk-17-jre-headless
+  # Install apptainer
+  - sudo add-apt-repository -y ppa:apptainer/ppa
+  - sudo apt update
+  - sudo apt install -y apptainer-suid
