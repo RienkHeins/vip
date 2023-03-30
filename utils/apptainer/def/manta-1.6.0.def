@@ -15,10 +15,8 @@ From: ubuntu:22.04
     mkdir build && cd build
     ../manta-${version_major}.${version_minor}.${version_patch}.release_src/configure --jobs=4 --prefix=/opt/manta
     make -j4 install
-    cd ../
 
     # cleanup
-    rm -r boost_1_81_0.tar.gz boost_1_81_0/
     apt-get -y purge bzip2 gcc g++ make zlib1g-dev wget cmake
     apt-get -y autoremove
     apt-get clean
