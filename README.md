@@ -52,5 +52,5 @@ First install [Multipass](https://multipass.run/). After which, run the followin
 3. `multipass shell vip`
 ```
 Above values for `--cpus`/`--memory`/`--disk` can be adjusted based on exact needs (or can be adjusted later using `multipass set` while the VM is not running).
-It is advised to have enough spare `--disk` space, as even though data is written to the mounted directory, temporary space is needed when for example building new images.
-While it might be possible to run VIP as a whole through this image, this is untested and unsupported.
+It is advised to have enough spare `--disk` space, as even though data is written to the mounted directory, temporary space is needed when for example building new apptainer images.
+While it might be possible to run VIP as a whole through Multipass, this is untested and unsupported.
