@@ -10,6 +10,8 @@ From: ubuntu:22.04
     pip install sniffles==2.0.7
 
     # cleanup
+    apt-get -y purge python3-pip
+    apt-get -y autoremove
     apt-get clean
 
 %help
