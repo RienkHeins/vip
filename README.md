@@ -9,6 +9,7 @@ VIP documentation is available at this link https://molgenis.github.io/vip/.
 ## Quick Reference
 
 ### Requirements
+- x86_64 architecture
 - Java
 - [Apptainer](https://apptainer.org/docs/admin/main/installation.html#install-from-pre-built-packages)
 - 400GB free disk space
@@ -32,13 +33,24 @@ usage: vip -w <arg> -i <arg> -o <arg>
 ```
 
 ## Developers
-To create the documentation pages:
+#### To create the documentation pages:
 ```
 pip install mkdocs mkdocs-mermaid2-plugin
 mkdocs serve
 ```
 
-To publish the documentation pages:
+#### To publish the documentation pages:
 ```
 mkdocs gh-pages
 ```
+
+#### To locally develop VIP on MacOS/Windows:
+First install [Multipass](https://multipass.run/). After which, run the following:
+```bash
+1. `git clone https://github.com/molgenis/vip`
+2. `multipass launch jammy --name vip --cpus 4 --disk 12G --memory 12G --cloud-init ./vip/multipass.yaml --mount ./vip:~/vip`
+3. `multipass shell vip`
+```
+Above values for `--cpus`/`--memory` can be adjusted based on how VIP is configured (or later using `multipass set`).
+`--disk` should be enough for running `build.sh` (created files are generated in the mounted directory, though for temporary files some space is required).
+It should be possible to run VIP as well through multipass (with optionally mounting additional directories where the data is stored), though this is untested.

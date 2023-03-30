@@ -1,6 +1,7 @@
 # Requirements
 Before installing VIP please check whether your system meets the following requirements:
 
+- x86_64 architecture
 - [POSIX compatible system](https://en.wikipedia.org/wiki/POSIX#POSIX-oriented_operating_systems) (e.g. Linux, macOS, [Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/about))
 - Bash ≥ 3.2
 - Java ≥ 11
