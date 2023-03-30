@@ -51,6 +51,6 @@ First install [Multipass](https://multipass.run/). After which, run the followin
 2. `multipass launch jammy --name vip --cpus 4 --disk 12G --memory 12G --cloud-init ./vip/multipass.yaml --mount ./vip:~/vip`
 3. `multipass shell vip`
 ```
-Above values for `--cpus`/`--memory` can be adjusted based on how VIP is configured (or later using `multipass set`).
-`--disk` should be enough for running `build.sh` (created files are generated in the mounted directory, though for temporary files some space is required).
-It should be possible to run VIP as well through multipass (with optionally mounting additional directories where the data is stored), though this is untested.
+Above values for `--cpus`/`--memory`/`--disk` can be adjusted based on exact needs (or can be adjusted later using `multipass set` while the VM is not running).
+It is advised to have enough spare `--disk` space, as even though data is written to the mounted directory, temporary space is needed when for example building new images.
+While it might be possible to run VIP as a whole through this image, this is untested and unsupported.
