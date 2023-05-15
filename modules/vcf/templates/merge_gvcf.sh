@@ -11,7 +11,6 @@ merge () {
   args+=("--info-rules" "QS:sum,MinDP:min,I16:sum,IDV:max,IMF:max")
   args+=("--output-type" "z")
   args+=("--output" "!{vcfOut}")
-  args+=("--write-index")
   args+=("--no-version")
   args+=("--threads" "!{task.cpus}")
   for gVcf in !{gVcfs}; do
@@ -21,12 +20,17 @@ merge () {
   ${CMD_BCFTOOLS} merge "${args[@]}"
 }
 
+index () {
+  ${CMD_BCFTOOLS} index --csi --output "!{vcfOutIndex}" --threads "!{task.cpus}" "!{vcfOut}"
+}
+
 stats () {
   ${CMD_BCFTOOLS} index --stats "!{vcfOut}" > "!{vcfOutStats}"
 }
 
 main () {
   merge
+  index
   stats
 }
 
