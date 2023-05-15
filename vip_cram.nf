@@ -54,10 +54,24 @@ workflow cram {
         [groupKey(key, size), meta]
       }
     | groupTuple
-    | map { key, group -> [[project_id:key.project_id, chunk:key.chunk, assembly:key.assembly, samples:group], group.vcf, group.vcf_index]}
-    | merge_gvcf
-    | map { meta, vcf, vcfIndex, vcfStats -> [*:meta, vcf:vcf, vcf_index:vcfIndex, vcf_stats:vcfStats]}
-    | set { ch_vcf_chunked_snvs_merged }
+    | map { key, group -> [[project_id:key.project_id, chunk:key.chunk, assembly:key.assembly, samples:group], group.vcf, group.vcf_index, group.vcf_stats]}
+    | branch { meta, vcfs, vcfIndexes, vcfStatsList ->
+        merge: vcfs.size() > 1
+        ready: true
+      }
+    | set { ch_vcf_chunked_snvs_merge }
+
+    ch_vcf_chunked_snvs_merge.merge
+      | merge_gvcf
+      | map { meta, vcf, vcfIndex, vcfStats -> [*:meta, vcf:vcf, vcf_index:vcfIndex, vcf_stats:vcfStats]}
+      | set { ch_vcf_chunked_snvs_merged_multiple }
+
+    ch_vcf_chunked_snvs_merge.ready
+      | map { meta, vcfs, vcfIndexes, vcfStatsList -> [*:meta, vcf: vcfs.first(), vcf_index: vcfIndexes.first(), vcf_stats: vcfStatsList.first()] }
+      | set { ch_vcf_chunked_snvs_merged_singleton }
+
+    ch_vcf_chunked_snvs_merged_multiple.mix(ch_vcf_chunked_snvs_merged_singleton)
+      | set { ch_vcf_chunked_snvs_merged }
 
     // publish short variant gvcfs per individual
     ch_vcf_chunked_snvs.publish
