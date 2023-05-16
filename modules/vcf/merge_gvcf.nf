@@ -11,8 +11,6 @@ process merge_gvcf {
     vcfOutIndex = "${vcfOut}.csi"
     vcfOutStats = "${vcfOut}.stats"
     refSeqPath = params[meta.assembly].reference.fasta
-    //TODO replace with info-rules config
-    config=params.vcf.gvcf_merge_preset
 
     template 'merge_gvcf.sh'
 }
