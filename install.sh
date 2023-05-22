@@ -66,6 +66,8 @@ download_resources_molgenis() {
     files+=("GRCh37/human_g1k_v37.fasta.gz.fai")
     files+=("GRCh37/human_g1k_v37.fasta.gz.gzi")
     files+=("GRCh37/human_g1k_v37.fasta.gz.mmi")
+    # generated using https://github.com/samtools/samtools/blob/1.17/misc/seq_cache_populate.pl
+    files+=("GRCh37/human_g1k_v37.ref_cache.tar.gz")
     files+=("GRCh37/spliceai_scores.masked.indel.hg19.vcf.gz")
     files+=("GRCh37/spliceai_scores.masked.indel.hg19.vcf.gz.tbi")
     files+=("GRCh37/spliceai_scores.masked.snv.hg19.vcf.gz")
@@ -86,6 +88,8 @@ download_resources_molgenis() {
     files+=("GRCh38/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.gz.fai")
     files+=("GRCh38/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.gz.gzi")
     files+=("GRCh38/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.gz.mmi")
+    # generated using https://github.com/samtools/samtools/blob/1.17/misc/seq_cache_populate.pl
+    files+=("GRCh38/GCA_000001405.15_GRCh38_no_alt_analysis_set.ref_cache.tar.gz")
     files+=("GRCh38/GCF_000001405.39_GRCh38.p13_genomic_mapped.gff.gz")
     files+=("GRCh38/gnomad.genomes.v3.1.2.sites.stripped.vcf.gz")
     files+=("GRCh38/gnomad.genomes.v3.1.2.sites.stripped.vcf.gz.csi")
@@ -219,12 +223,24 @@ unzip_reference() {
     else
       echo -e "skipping extraction of reference for GRCh37: already exists"
     fi
+    if [ ! -d "${download_dir}/GRCh37/human_g1k_v37_ref_cache" ]; then
+      mkdir "${download_dir}/GRCh37/human_g1k_v37_ref_cache"
+      tar -zcvf "${download_dir}/GRCh37/human_g1k_v37.samtools_ref_cache.tar.gz" "${download_dir}/GRCh37/human_g1k_v37_ref_cache"
+    else
+      echo -e "skipping extraction of reference cache for GRCh37: already exists"
+    fi
   fi
   if [ "${assembly}" == "ALL" ] || [ "${assembly}" == "GRCh38" ]; then
     if [ ! -f "${download_dir}/GRCh38/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna" ]; then
       gunzip -c "${download_dir}/GRCh38/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.gz" > "${download_dir}/GRCh38/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna"
     else
       echo -e "skipping extraction of reference for GRCh38: already exists"
+    fi
+    if [ ! -d "${download_dir}/GRCh38/GCA_000001405.15_GRCh38_no_alt_analysis_set_ref_cache" ]; then
+      mkdir "${download_dir}/GRCh38/GCA_000001405.15_GRCh38_no_alt_analysis_set_ref_cache"
+      tar -zcvf "${download_dir}/GRCh38/GCA_000001405.15_GRCh38_no_alt_analysis_set.samtools_ref_cache.tar.gz" "${download_dir}/GRCh38/GCA_000001405.15_GRCh38_no_alt_analysis_set_ref_cache"
+    else
+      echo -e "skipping extraction of reference cache for GRCh37: already exists"
     fi
   fi
 }
