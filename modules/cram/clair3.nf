@@ -4,6 +4,7 @@ process clair3_call {
   output:
     tuple val(meta), path(vcfOut), path(vcfOutIndex), path(vcfOutStats)
   shell:
+    refCachePath = params[meta.sample.assembly].reference.cache
     refSeqPath = params[meta.sample.assembly].reference.fasta
     reference = refSeqPath.substring(0, refSeqPath.lastIndexOf('.')) 
     bed="${meta.sample.individual_id}_${meta.chunk.index}.bed"

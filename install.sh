@@ -240,7 +240,7 @@ unzip_reference() {
       mkdir "${download_dir}/GRCh38/GCA_000001405.15_GRCh38_no_alt_analysis_set_ref_cache"
       cd "${download_dir}/GRCh38/GCA_000001405.15_GRCh38_no_alt_analysis_set_ref_cache" && tar -xf "${download_dir}/GRCh38/GCA_000001405.15_GRCh38_no_alt_analysis_set.ref_cache.tar.gz"
     else
-      echo -e "skipping extraction of reference cache for GRCh37: already exists"
+      echo -e "skipping extraction of reference cache for GRCh38: already exists"
     fi
   fi
 }
