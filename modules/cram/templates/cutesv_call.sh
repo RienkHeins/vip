@@ -39,7 +39,7 @@ call_structural_variants () {
 }
 
 postprocess () {
-  ${CMD_BCFTOOLS} view --output-type z --output "!{vcfOut}" --no-version --threads "!{task.cpus}" "cutesv_output.vcf"
+  ${CMD_BCFTOOLS} sort --output-type z --output "!{vcfOut}" --temp-dir "${TMPDIR}" "cutesv_output.vcf"
   ${CMD_BCFTOOLS} index --csi --output "!{vcfOutIndex}" --threads "!{task.cpus}" "!{vcfOut}"
   ${CMD_BCFTOOLS} index --stats "!{vcfOut}" > "!{vcfOutStats}"
 }
