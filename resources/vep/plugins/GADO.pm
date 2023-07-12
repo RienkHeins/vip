@@ -81,7 +81,7 @@ sub parseMappingFile {
         my $line = $_;
         chomp($line);
         @split = split(/\t/, $line);
-        if (defined $split[0] and length $split[0]){
+        if (defined $split[0] and length $split[0] and defined $split[1] and length $split[1]){
             $mapping_data{$split[1]} = $split[0];
         }
     }
